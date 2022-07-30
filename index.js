@@ -1,7 +1,18 @@
 class Scoreboard {
     constructor(className, initialGames) {
-        this.scoreboardBody = document.querySelector(`.${className} tbody`);
+        this.scoreboard = document.querySelector(`.${className}`);
+        this.scoreboardBody = this.scoreboard.querySelector(`.${className} tbody`);
         this.games = initialGames;
+
+        this.startNewGameButton = this.scoreboard.querySelector(`#start-new-game`);
+        this.showSummaryButton = this.scoreboard.querySelector(`#show-summary`);
+
+        this.addEventListeners();
+    }
+
+    addEventListeners() {
+        this.startNewGameButton.addEventListener('click', this.startNewGame.bind(this));
+        this.showSummaryButton.addEventListener('click', this.showSummary.bind(this));
     }
 
     init() {
@@ -89,6 +100,40 @@ class Scoreboard {
         this.games.splice(currentGameIndex, 1);
 
         this.init();
+    }
+
+    startNewGame() {
+        const newHostTeamName = prompt('Please enter home team: ', '');
+
+        if (!newHostTeamName) return;
+
+        const newGuestTeamName = prompt('Please enter guest team: ', '');
+
+        if (!newGuestTeamName) return;
+
+        const newId = this.games[this.games.length - 1]?.id + 1 ?? 0;
+
+        const newGame = { id: newId, hostTeamName: newHostTeamName, hostTeamScore: 0, guestTeamName: newGuestTeamName, guestTeamScore: 0 };
+
+        this.games.push(newGame);
+
+        this.init();
+    }
+
+    showSummary() {
+        const gamesCopy = [...this.games];
+
+        gamesCopy.sort((gameA, gameB) => {
+            if (gameA.hostTeamScore + gameA.guestTeamScore === gameB.hostTeamScore + gameB.guestTeamScore) {
+                return gameB.id - gameA.id;
+            }
+
+            return gameA.hostTeamScore + gameA.guestTeamScore > gameB.hostTeamScore + gameB.guestTeamScore ? -1 : 1;
+        });
+
+        const summary = gamesCopy.reduce((acc, game, index, arr) => `${acc}${game.hostTeamName} ${game.hostTeamScore} - ${game.guestTeamName} ${game.guestTeamScore} ${index === arr.length - 1 ?  '' : '\n'}`, '');
+
+        alert(summary);
     }
 }
 
