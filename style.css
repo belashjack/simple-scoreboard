@@ -1,0 +1,33 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+.scoreboard {
+    margin: 0 auto;
+    border: 1px solid #000000;
+    border-collapse: collapse;
+}
+
+.scoreboard caption {
+    margin: 16px;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.scoreboard th,
+.scoreboard td {
+    padding: 16px;
+    border: 1px solid #000000;
+    text-align: center;
+}
+
+.scoreboard button {
+    margin: 4px;
+    padding: 4px;
+}
