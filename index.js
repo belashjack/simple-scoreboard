@@ -35,10 +35,10 @@ class Scoreboard {
             const actionsCell = document.createElement('td');
             const updateScoreButton = document.createElement('button');
             updateScoreButton.textContent = 'Update Score';
-            updateScoreButton.addEventListener('click', this.updateScore.bind(this, id))
+            updateScoreButton.addEventListener('click', this.updateScore.bind(this, id));
             const finishGameButton = document.createElement('button');
             finishGameButton.textContent = 'Finish Game';
-            finishGameButton.addEventListener('click', this.finishGame.bind(this, id))
+            finishGameButton.addEventListener('click', this.finishGame.bind(this, id));
 
             actionsCell.append(updateScoreButton);
             actionsCell.append(finishGameButton);
@@ -111,7 +111,7 @@ class Scoreboard {
 
         if (!newGuestTeamName) return;
 
-        const newId = this.games[this.games.length - 1]?.id + 1 ?? 0;
+        const newId = this.games.length > 0 ? this.games[this.games.length - 1] + 1 : 0;
 
         const newGame = { id: newId, hostTeamName: newHostTeamName, hostTeamScore: 0, guestTeamName: newGuestTeamName, guestTeamScore: 0 };
 
